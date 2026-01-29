@@ -20,6 +20,10 @@
   "extensionDependencies": [
     "denoland.vscode-deno"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SoftLightTech/webl-extension"
+  },
   "contributes": {
     "commands": [
       {
