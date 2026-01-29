@@ -1,0 +1,190 @@
+{
+  "name": "webl",
+  "displayName": "WebL",
+  "description": "Improve website development. WebL is a SoftLightTech technology.",
+  "version": "0.0.1",
+  "icon": "assets/icon.png",
+  "publisher": "SoftLightTech",
+  "license": "CC-BY-SA-4.0",
+  "engines": {
+    "vscode": "^1.108.1"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Debuggers",
+    "Other"
+  ],
+  "activationEvents": ["workspaceContains:project/config.webl.ts"],
+  "main": "./dist/extension.js",
+  "extensionDependencies": [
+    "denoland.vscode-deno"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "category": "WebL",
+        "command": "webl.create",
+        "title": "Create Project"
+      },
+      {
+        "category": "WebL",
+        "command": "webl.config",
+        "title": "Edit Project Configuration",
+        "icon": "$(tools)",
+        "enablement": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      },
+      {
+        "category": "WebL",
+        "command": "webl.translations",
+        "title": "Edit Project Translations",
+        "icon": "$(replace-all)",
+        "enablement": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      },
+      {
+        "category": "WebL",
+        "command": "webl.update.check",
+        "title": "Check for Updates",
+        "icon": "$(history)",
+        "enablement": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      },
+      {
+        "category": "WebL",
+        "command": "webl.update",
+        "title": "Update Project",
+        "icon": "$(cloud-download)",
+        "enablement": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      },
+      {
+        "category": "WebL",
+        "command": "webl.debug",
+        "title": "Debug Project",
+        "icon": "$(debug-alt)",
+        "enablement": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "WebL",
+        "properties": {
+          "webl.project.update.ask": {
+            "type": "boolean",
+            "description": "Ask the user before updating WebL project.",
+            "default": true
+          },
+          "webl.project.update.cli": {
+            "type": "boolean",
+            "description": "Update the WebL CLI if necessary when the project is opened.",
+            "default": true
+          },
+          "webl.project.update.core": {
+            "type": "boolean",
+            "description": "Update the WebL core if necessary when the project is opened.",
+            "default": true
+          },
+          "webl.project.update.website": {
+            "type": "boolean",
+            "description": "Update default website files if necessary when the project is opened.",
+            "default": false
+          },
+          "webl.project.version": {
+            "type": "string",
+            "markdownDescription": "The WebL version hash used in the project.\n\n**Warning**: Changing this value manually could break your project.",
+            "minLength": 64,
+            "maxLength": 64,
+            "default": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+          }
+        }
+      }
+    ],
+    "keybindings": {
+      "key": "f5",
+      "command": "webl.debug",
+      "when": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "webl.update.check",
+          "group": "navigation",
+          "when": "view == webl.project && config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+        },
+        {
+          "command": "webl.translations",
+          "group": "navigation",
+          "when": "view == webl.project && config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+        },
+        {
+          "command": "webl.config",
+          "group": "navigation",
+          "when": "view == webl.project && config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+        },
+        {
+          "command": "webl.debug",
+          "group": "navigation",
+          "when": "view == webl.project && config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+        }
+      ]
+    },
+    "views": {
+      "webl": [
+        {
+          "id": "webl.project",
+          "name": "Project",
+          "icon": "assets/icons/webl.svg"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "webl",
+          "title": "WebL",
+          "icon": "assets/icons/webl.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "webl.project",
+        "contents": "No project was found in this workspace.\nIn order to use WebL features, you can create a new project or open an existing one.\n[Open Folder](command:vscode.openFolder)\n[Create Project](command:webl.create)",
+        "when": "config.webl.project.version == '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      },
+      {
+        "view": "webl.project",
+        "contents": "Initializing project...",
+        "when": "config.webl.project.version != '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9'"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.108.1",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.0",
+    "eslint": "^9.39.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.3"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}
